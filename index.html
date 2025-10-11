@@ -3,6 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="alternate icon" type="image/png" href="assets/favicon.png">
+  <!-- Social preview -->
+  <meta property="og:title" content="Yafi Zain – Portfolio" />
+  <meta property="og:description" content="Graphic Design · Motion Graphics · Video Editing · Audio Engineering" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Yafi Zain – Portfolio" />
+  <meta name="twitter:description" content="Graphic Design · Motion Graphics · Video Editing · Audio Engineering" />
+  <meta name="twitter:image" content="assets/og-image.jpg" />
   <title>Portfolio – Graphic Designer</title>
   <meta name="description" content="Graphic Design · Motion Graphics · Video Editing · Audio Engineering" />
   <style>
@@ -11,21 +27,49 @@
       --panel:#12141a;
       --ink:#e8e9ee;
       --muted:#a9afbf;
-      --accent:#66e3c4;
+      --accent:#ffffff; /* dark mode accent switched to ice white */
       --line:#1e2230;
+      --icon:#e8e9ee; /* unified icon color */
+      /* halo color as R G B for radial background */
+      --halo: 22 27 40;
     }
     @media (prefers-color-scheme: light){
-      :root{--bg:#ffffff; --panel:#f7f7fb; --ink:#101218; --muted:#4a5163; --accent:#0aa; --line:#e5e7ef}
+      :root{
+        --bg:#F5F5F5; /* clean light background */
+        --panel:#FFFFFF; /* crisper ice white panels */
+        --ink:#101218;
+        --muted:#4a5163;
+        --accent:#111111; /* charcoal accent for links/buttons */
+        --line:#E6E6E6;
+        --icon:#111111; /* premium icon color */
+        --halo: 245 245 245; /* subtle halo */
+      }
+    }
+    }
+    }
+
+    /* Manual theme overrides */
+    :root[data-theme="dark"]{
+      --bg:#0b0c0f; --panel:#12141a; --ink:#e8e9ee; --muted:#a9afbf; --accent:#ffffff; --line:#1e2230; --icon:#e8e9ee; --halo:22 27 40;
+    }
+    :root[data-theme="light"]{
+      --bg:#F5F5F5; --panel:#FFFFFF; --ink:#101218; --muted:#4a5163; --accent:#111111; --line:#E6E6E6; --icon:#111111; --halo:245 245 245;
+    }
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif; 
-      color:var(--ink); background: radial-gradient(1200px 600px at 10% -5%, #182035 0%, transparent 60%) , var(--bg);
+      margin:0; font:16px/1.65 'Poppins', system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;  
+      color:var(--ink); background:
+      radial-gradient(circle at 50% 50%, rgb(var(--halo)/0.55) 0%, rgb(var(--halo)/0.35) 35%, rgb(var(--halo)/0) 70%),
+      var(--bg);
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: cover;
     }
     a{color:var(--accent); text-decoration:none}
     a:hover{text-decoration:underline}
-    .wrap{max-width:980px; margin:auto; padding:32px 20px 56px}
+    .wrap{max-width:980px; margin:auto; padding:32px 20px 56px; position:relative; z-index:1} 
     header{display:flex; flex-wrap:wrap; align-items:flex-end; gap:6px 12px; border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
     h1{font-weight:800; letter-spacing:.2px; margin:0; font-size:clamp(28px,5vw,40px)}
     .tag{color:var(--muted)}
@@ -51,9 +95,7 @@
     figure{margin:0}
     .thumb{width:100%; height:0; padding-bottom:70%; object-fit:cover; border-radius:10px; display:block; background:#222; border:1px solid var(--line)}
     .cap{font-size:12px; color:var(--muted); margin-top:4px}
-    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
-
-    /* Lightbox modal */
+    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}    /* Lightbox modal */
     dialog#lightbox{width:min(92vw, 980px); border:1px solid var(--line); background:var(--panel); padding:0; border-radius:14px; color:var(--ink)}
     dialog::backdrop{background:rgb(0 0 0 / .65)}
     .lb-head{display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border-bottom:1px solid var(--line)}
@@ -63,18 +105,161 @@
     .btn:hover{border-color:var(--accent)}
     .pill{display:inline-block; font-size:12px; padding:4px 8px; border:1px solid var(--line); border-radius:999px; color:var(--muted)}
     .split{display:flex; align-items:center; justify-content:space-between; gap:10px}
+
+    /* --- Modern Swipe Slider (scroll-snap) --- */
+    .slider{position:relative}
+    .slider-viewport{display:grid; grid-auto-flow:column; grid-auto-columns:80%; gap:10px; overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; scroll-behavior:smooth; padding:4px 2px 10px}
+    @media (min-width:640px){ .slider-viewport{ grid-auto-columns:calc((100% - 10px)/2); } }
+    @media (min-width:900px){ .slider-viewport{ grid-auto-columns:calc((100% - 20px)/3); } }
+    .slider-viewport::-webkit-scrollbar{height:8px}
+    .slider-viewport::-webkit-scrollbar-thumb{background:var(--line); border-radius:8px}
+    .card{scroll-snap-align:start}
+    .slider-nav{position:absolute; inset-block-start:50%; translate:0 -50%; inset-inline:0; display:flex; justify-content:space-between; pointer-events:none}
+    .slider-btn{pointer-events:auto; background:rgb(0 0 0 / .3); border:1px solid var(--line); backdrop-filter:saturate(140%) blur(4px); width:38px; height:38px; border-radius:999px; display:grid; place-items:center; cursor:pointer}
+    .slider-btn:hover{border-color:var(--accent)}
+    .slider-dots{display:flex; gap:6px; justify-content:center; margin-top:8px}
+    .dot{width:8px; height:8px; border-radius:999px; background:var(--line)}
+    .dot.active{background:var(--accent)}
+
+    /* --- Masonry layout for Posters & Logos --- */
+    .masonry{column-count:2; column-gap:12px}
+    @media (min-width:640px){ .masonry{column-count:3} }
+    @media (min-width:900px){ .masonry{column-count:4} }
+    .masonry figure{break-inside:avoid; -webkit-column-break-inside:avoid; margin:0 0 12px}
+    .thumb-auto{width:100%; height:auto; display:block; border-radius:10px; background:#222; border:1px solid var(--line)}
+
+    /* Hero */
+    .hero{display:grid; grid-template-columns:96px 1fr; gap:16px; align-items:center; margin-bottom:22px}
+    @media (min-width:640px){ .hero{grid-template-columns:130px 1fr; gap:18px} }
+    .avatar{width:96px; height:96px; border-radius:50%; object-fit:cover; border:2px solid var(--line); background:var(--panel)}
+    @media (min-width:640px){ .avatar{width:130px; height:130px} }
+    .hero h1{font-size:clamp(26px,4.5vw,36px); margin:0 0 4px}
+    .role{color:var(--muted); margin:0 0 8px}
+    .info-list{list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; gap:10px 16px; color:var(--muted)}
+    .info-list li{display:flex; align-items:center; gap:6px}
+    .socials{margin-top:10px; display:flex; flex-wrap:wrap; gap:10px}
+    .chip{display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border:1px solid var(--line); border-radius:999px}
+    .chip svg, .info-list svg{width:16px; height:16px; color:var(--icon); stroke:currentColor; fill:none}
+    .info-list a{color:inherit; text-decoration:none}
+    .info-list a:hover{text-decoration:underline}
+    .topbar{display:flex; justify-content:flex-end; margin-bottom:8px}
+    .toggle{appearance:none; border:1px solid var(--line); background:var(--panel); color:var(--ink); border-radius:999px; padding:6px 10px; cursor:pointer}
+    .toggle:hover{border-color:var(--accent)}
+
+    /* Mobile-centered hero */
+    @media (max-width:639px){
+      .hero{grid-template-columns:1fr; text-align:center; justify-items:center}
+      .avatar{width:140px; height:140px}
+      .info-list{justify-content:center}
+      .socials{justify-content:center}
+    }
+    .toggle{appearance:none; border:1px solid var(--line); background:var(--panel); color:var(--ink); border-radius:999px; padding:6px 10px; cursor:pointer}
+    .toggle:hover{border-color:var(--accent)}
+      /* Subtle noise texture overlay */
+    .grain{position:fixed; inset:0; pointer-events:none; opacity:.06; mix-blend-mode:multiply; z-index:0;
+      background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.5"/></svg>');
+      background-size:120px 120px;
+    }
+      /* Spacing polish */
+    section{padding:18px 0 12px; border-bottom:1px dashed var(--line)}
+    header{padding-bottom:16px; margin-bottom:22px}
+    h2{margin:10px 0 10px}
+    .cap{margin-top:6px}
+
+    /* Hover + motion */
+    :where(a,.chip,.slider-btn,details.gallery>summary,button){transition:all .2s ease}
+    .chip:hover{transform:translateY(-1px); box-shadow:0 4px 14px rgb(0 0 0 / .15)}
+    .slider-btn:hover{transform:scale(1.06)}
+    details.gallery>summary:hover{color:var(--accent)}
+    img.thumb, img.thumb-auto{transition:transform .25s ease, box-shadow .25s ease}
+    img.thumb:hover, img.thumb-auto:hover{transform:translateY(-2px); box-shadow:0 8px 22px rgb(0 0 0 / .25)}
+    :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:8px}
+
+    /* Animations */
+    @keyframes fadeIn{from{opacity:0} to{opacity:1}}
+    @keyframes rise{from{transform:translateY(6px); opacity:0} to{transform:none; opacity:1}}
+    .hero, header, section{animation:fadeIn .5s ease both}
+    .masonry figure, .card{animation:rise .4s ease both}
+
+    /* Contact form */
+    .contact{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:16px}
+    .contact form{display:grid; gap:12px}
+    .row{display:grid; gap:12px}
+    @media(min-width:640px){ .row{grid-template-columns:1fr 1fr} }
+    .field{display:grid; gap:6px}
+    .field label{font-size:13px; color:var(--muted)}
+    .input, .textarea{width:100%; border:1px solid var(--line); background:transparent; color:var(--ink); border-radius:10px; padding:10px 12px; font:inherit}
+    .textarea{min-height:120px; resize:vertical}
+    .cta{justify-self:start; appearance:none; border:1px solid var(--line); background:var(--accent); color:var(--bg); border-radius:999px; padding:10px 16px; cursor:pointer; font-weight:700}
+    .cta:hover{filter:brightness(1.05)}
+    @media (max-width:639px){ .cta{justify-self:stretch; text-align:center} }
+
+    /* Responsive polish */
+    @media (max-width:480px){ .wrap{padding:18px 14px 48px} }
   </style>
 </head>
 <body>
+  <div class="grain" aria-hidden="true"></div>
   <main class="wrap">
+    <div class="topbar">
+      <button id="themeToggle" class="toggle" aria-label="Toggle theme">Toggle Theme</button>
+    </div>
+    <section id="hero" class="hero">
+      <img class="avatar" src="assets/profile.jpg" alt="Portrait of Yafi Zain" />
+      <div>
+        <h1>Yafi Zain</h1>
+        <p class="role">Graphic Designer · Motion Graphics · Video Editing · Audio Engineering</p>
+        <ul class="info-list">
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M12 21s-7-5.4-7-10a7 7 0 1 1 14 0c0 4.6-7 10-7 10z"/></svg>
+            Purwokerto, Indonesia
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.86.3 1.7.54 2.5a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.58-1.07a2 2 0 0 1 2.11-.45c.8.24 1.64.42 2.5.54A2 2 0 0 1 22 16.92z"/></svg>
+            <a href="tel:+628xxxxxxxxx">+62-8xx-xxxx-xxxx</a>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" ry="2"/><polyline points="3,7 12,13 21,7"/></svg>
+            <a href="mailto:yourname@email.com">yourname@email.com</a>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+            <a href="https://www.yourwebsite.com" target="_blank" rel="noopener">www.yourwebsite.com</a>
+          </li>
+        </ul>
+        <div class="socials">
+          <a class="chip" href="mailto:yourname@email.com" aria-label="Send email">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" ry="2"/><polyline points="3,7 12,13 21,7"/></svg>
+            Email
+          </a>
+          <a class="chip" href="https://wa.me/628xxxxxxxxx?text=Hi%20Yafi%2C%20I%20found%20your%20portfolio" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 3 17l-1 4 4-1a11 11 0 0 0 14.5-3.5 11 11 0 0 0 0-13Z"/></svg>
+            WhatsApp
+          </a>
+          <a class="chip" href="https://instagram.com/yourhandle" target="_blank" rel="noopener">Instagram</a>
+          <a class="chip" href="https://x.com/yourhandle" target="_blank" rel="noopener">X / Twitter</a>
+          <a class="chip" href="https://www.youtube.com/@yourchannel" target="_blank" rel="noopener">YouTube</a>
+          <a class="chip" href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </section>
     <header>
-      <h1>Graphic Designer</h1>
-      <span class="pill">Graphic Design · Motion Graphics · Video Editing · Audio Engineering</span>
+      <h1>Skills</h1>
+      <span class="pill">Graphic Design · Motion Graphics · Video Editing · Audio Engineering.</span>
     </header>
 
     <section id="skills">
-      <h2>Skills</h2>
-      <p>Graphic Design · Motion Graphics · Video Editing · Audio Engineering</p>
+      <h2>Tools</h2>
+      <div class="socials" aria-label="Tools I use" style="font-size:13px;gap:6px 8px">
+        <span class="chip">• GIMP</span>
+        <span class="chip">• Adobe Photoshop</span>
+        <span class="chip">• After Effects</span>
+        <span class="chip">• Premiere Pro</span>
+        <span class="chip">• DaVinci Resolve</span>
+        <span class="chip">• Procreate</span>
+        <span class="chip">• LMMS</span>
+        <span class="chip">• Logic Pro</span>
+      </div>
     </section>
 
     <section id="education">
@@ -154,22 +339,21 @@
       <details class="gallery">
         <summary>Posters</summary>
         <div class="gallery-body">
-          <div class="grid" id="gallery-posters">
-            <!-- Replace src with your images in /assets/posters/ -->
+          <div class="masonry" id="gallery-posters">
             <figure>
-              <img class="thumb" loading="lazy" src="assets/posters/poster1.jpg" alt="Poster design 1" data-full="assets/posters/poster1.jpg" />
+              <img class="thumb-auto lb" loading="lazy" src="assets/posters/poster1.jpg" alt="Poster design 1" data-full="assets/posters/poster1.jpg" />
               <figcaption class="cap">Poster – 01</figcaption>
             </figure>
             <figure>
-              <img class="thumb" loading="lazy" src="assets/posters/poster2.jpg" alt="Poster design 2" data-full="assets/posters/poster2.jpg" />
+              <img class="thumb-auto lb" loading="lazy" src="assets/posters/poster2.jpg" alt="Poster design 2" data-full="assets/posters/poster2.jpg" />
               <figcaption class="cap">Poster – 02</figcaption>
             </figure>
             <figure>
-              <img class="thumb" loading="lazy" src="assets/posters/poster3.jpg" alt="Poster design 3" data-full="assets/posters/poster3.jpg" />
+              <img class="thumb-auto lb" loading="lazy" src="assets/posters/poster3.jpg" alt="Poster design 3" data-full="assets/posters/poster3.jpg" />
               <figcaption class="cap">Poster – 03</figcaption>
             </figure>
             <figure>
-              <img class="thumb" loading="lazy" src="assets/posters/poster4.jpg" alt="Poster design 4" data-full="assets/posters/poster4.jpg" />
+              <img class="thumb-auto lb" loading="lazy" src="assets/posters/poster4.jpg" alt="Poster design 4" data-full="assets/posters/poster4.jpg" />
               <figcaption class="cap">Poster – 04</figcaption>
             </figure>
           </div>
@@ -180,20 +364,26 @@
       <details class="gallery">
         <summary>Motion Graphics</summary>
         <div class="gallery-body">
-          <div class="grid" id="gallery-motion">
-            <!-- Use thumbnails of your videos; clicking opens the still image or GIF. For YouTube/Vimeo, add links below captions. -->
-            <figure>
-              <img class="thumb" loading="lazy" src="assets/motion/motion1.jpg" alt="Motion graphics 1" data-full="assets/motion/motion1.mp4" />
-              <figcaption class="cap">Motion – 01 · <a href="#" aria-label="Open external video">Watch</a></figcaption>
-            </figure>
-            <figure>
-              <img class="thumb" loading="lazy" src="assets/motion/motion2.jpg" alt="Motion graphics 2" data-full="assets/motion/motion2.mp4" />
-              <figcaption class="cap">Motion – 02 · <a href="#" aria-label="Open external video">Watch</a></figcaption>
-            </figure>
-            <figure>
-              <img class="thumb" loading="lazy" src="assets/motion/motion3.jpg" alt="Motion graphics 3" data-full="assets/motion/motion3.mp4" />
-              <figcaption class="cap">Motion – 03 · <a href="#" aria-label="Open external video">Watch</a></figcaption>
-            </figure>
+          <div class="slider" data-gallery="motion">
+            <div class="slider-viewport" id="gallery-motion">
+              <figure class="card">
+                <img class="thumb" loading="lazy" src="assets/motion/motion1.jpg" alt="Motion graphics 1" data-full="assets/motion/motion1.mp4" />
+                <figcaption class="cap">Motion – 01 · <a href="#" aria-label="Open external video">Watch</a></figcaption>
+              </figure>
+              <figure class="card">
+                <img class="thumb" loading="lazy" src="assets/motion/motion2.jpg" alt="Motion graphics 2" data-full="assets/motion/motion2.mp4" />
+                <figcaption class="cap">Motion – 02 · <a href="#" aria-label="Open external video">Watch</a></figcaption>
+              </figure>
+              <figure class="card">
+                <img class="thumb" loading="lazy" src="assets/motion/motion3.jpg" alt="Motion graphics 3" data-full="assets/motion/motion3.mp4" />
+                <figcaption class="cap">Motion – 03 · <a href="#" aria-label="Open external video">Watch</a></figcaption>
+              </figure>
+            </div>
+            <div class="slider-nav">
+              <button class="slider-btn prev" aria-label="Previous">‹</button>
+              <button class="slider-btn next" aria-label="Next">›</button>
+            </div>
+            <div class="slider-dots" aria-hidden="true"></div>
           </div>
         </div>
       </details>
@@ -202,22 +392,46 @@
       <details class="gallery">
         <summary>Logo</summary>
         <div class="gallery-body">
-          <div class="grid" id="gallery-logos">
+          <div class="masonry" id="gallery-logos">
             <figure>
-              <img class="thumb" loading="lazy" src="assets/logos/logo1.jpg" alt="Logo 1" data-full="assets/logos/logo1.jpg" />
+              <img class="thumb-auto lb" loading="lazy" src="assets/logos/logo1.jpg" alt="Logo 1" data-full="assets/logos/logo1.jpg" />
               <figcaption class="cap">Logo – 01</figcaption>
             </figure>
             <figure>
-              <img class="thumb" loading="lazy" src="assets/logos/logo2.jpg" alt="Logo 2" data-full="assets/logos/logo2.jpg" />
+              <img class="thumb-auto lb" loading="lazy" src="assets/logos/logo2.jpg" alt="Logo 2" data-full="assets/logos/logo2.jpg" />
               <figcaption class="cap">Logo – 02</figcaption>
             </figure>
             <figure>
-              <img class="thumb" loading="lazy" src="assets/logos/logo3.jpg" alt="Logo 3" data-full="assets/logos/logo3.jpg" />
+              <img class="thumb-auto lb" loading="lazy" src="assets/logos/logo3.jpg" alt="Logo 3" data-full="assets/logos/logo3.jpg" />
               <figcaption class="cap">Logo – 03</figcaption>
             </figure>
           </div>
         </div>
       </details>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="contact">
+        <!-- For a backend-free submit, replace action with your Formspree endpoint or keep mailto: -->
+        <form action="mailto:yourname@email.com" method="GET">
+          <div class="row">
+            <div class="field">
+              <label for="name">Your Name</label>
+              <input class="input" type="text" id="name" name="subject" placeholder="Your name" required>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input class="input" type="email" id="email" name="cc" placeholder="you@example.com" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea class="textarea" id="message" name="body" placeholder="Tell me about your project…" required></textarea>
+          </div>
+          <button class="cta" type="submit">Send Message</button>
+        </form>
+      </div>
     </section>
 
     <section id="youtube">
@@ -226,7 +440,7 @@
     </section>
 
     <section id="footnote">
-      <p class="tag">© <span id="year"></span> • Built for GitHub Pages. Update images in the <code>/assets</code> folders.</p>
+      <p class="tag">© yafi zain 2025.</p>
     </section>
   </main>
 
@@ -244,7 +458,7 @@
 
   <script>
     // Current year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    (function(){var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();})();
 
     // Lightbox logic (supports images and mp4)
     const dlg = document.getElementById('lightbox');
@@ -277,7 +491,7 @@
 
     document.addEventListener('click', (e)=>{
       const t = e.target;
-      if(t && t.classList.contains('thumb')){
+      if(t && t.classList && t.classList.contains('lb')){
         const src = t.getAttribute('data-full') || t.src;
         const alt = t.getAttribute('alt') || '';
         openLightbox(src, alt);
@@ -287,6 +501,96 @@
     document.getElementById('lb-close').addEventListener('click', closeLightbox);
     dlg.addEventListener('click', (e)=>{ if(e.target === dlg) closeLightbox(); });
     document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeLightbox(); });
+    </script>
+
+  <script>
+    // Theme toggle with localStorage
+    (function(){
+      const root = document.documentElement;
+      const btn = document.getElementById('themeToggle');
+      const saved = localStorage.getItem('theme');
+      if(saved){ root.setAttribute('data-theme', saved); }
+      function label(){ btn.textContent = root.getAttribute('data-theme') === 'light' ? 'Dark Mode' : 'Light Mode'; }
+      label();
+      btn.addEventListener('click', ()=>{
+        const current = root.getAttribute('data-theme');
+        const next = current === 'light' ? 'dark' : 'light';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        label();
+      });
+    })();
+  </script>
+
+  <script>
+    // --- Slider init (scroll-snap + buttons + dots) (scroll-snap + buttons + dots) ---
+    function initSlider(slider){
+      const viewport = slider.querySelector('.slider-viewport');
+      const cards = [...viewport.querySelectorAll('.card')];
+      const prev = slider.querySelector('.prev');
+      const next = slider.querySelector('.next');
+      const dotsBox = slider.querySelector('.slider-dots');
+
+      function perView(){
+        // estimate how many cards are visible from first card width
+        if(cards.length === 0) return 1;
+        const cardW = cards[0].getBoundingClientRect().width || 1;
+        const vw = viewport.clientWidth || 1;
+        return Math.max(1, Math.round(vw / cardW));
+      }
+
+      function pages(){
+        return Math.max(1, Math.ceil(cards.length / perView()));
+      }
+
+      function pageIndex(){
+        const vw = viewport.clientWidth;
+        const idx = Math.round(viewport.scrollLeft / vw);
+        return Math.min(pages()-1, Math.max(0, idx));
+      }
+
+      function go(delta){
+        const vw = viewport.clientWidth;
+        viewport.scrollBy({left: delta * vw, behavior:'smooth'});
+      }
+
+      // buttons
+      prev.addEventListener('click', ()=> go(-1));
+      next.addEventListener('click', ()=> go(1));
+
+      // dots
+      function buildDots(){
+        dotsBox.innerHTML = '';
+        const p = pages();
+        for(let i=0;i<p;i++){
+          const d = document.createElement('button');
+          d.className = 'dot';
+          d.type = 'button';
+          d.addEventListener('click', ()=>{
+            viewport.scrollTo({left: i * viewport.clientWidth, behavior:'smooth'});
+          });
+          dotsBox.appendChild(d);
+        }
+        updateDots();
+      }
+
+      function updateDots(){
+        const idx = pageIndex();
+        [...dotsBox.children].forEach((el, i)=> el.classList.toggle('active', i===idx));
+      }
+
+      viewport.addEventListener('scroll', ()=>{
+        // throttle via rAF
+        if(viewport._raf) cancelAnimationFrame(viewport._raf);
+        viewport._raf = requestAnimationFrame(updateDots);
+      }, {passive:true});
+
+      const ro = new ResizeObserver(()=>{ buildDots(); });
+      ro.observe(viewport);
+      buildDots();
+    }
+
+    document.querySelectorAll('.slider').forEach(initSlider);
   </script>
 </body>
 </html>
