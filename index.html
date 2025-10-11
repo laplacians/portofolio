@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio – Graphic Designer</title>
+  <meta name="description" content="Graphic Design · Motion Graphics · Video Editing · Audio Engineering" />
+  <style>
+    :root{
+      --bg: #0b0c0f;
+      --panel:#12141a;
+      --ink:#e8e9ee;
+      --muted:#a9afbf;
+      --accent:#66e3c4;
+      --line:#1e2230;
+    }
+    @media (prefers-color-scheme: light){
+      :root{--bg:#ffffff; --panel:#f7f7fb; --ink:#101218; --muted:#4a5163; --accent:#0aa; --line:#e5e7ef}
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif; 
+      color:var(--ink); background: radial-gradient(1200px 600px at 10% -5%, #182035 0%, transparent 60%) , var(--bg);
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:980px; margin:auto; padding:32px 20px 56px}
+    header{display:flex; flex-wrap:wrap; align-items:flex-end; gap:6px 12px; border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px}
+    h1{font-weight:800; letter-spacing:.2px; margin:0; font-size:clamp(28px,5vw,40px)}
+    .tag{color:var(--muted)}
+    section{padding:14px 0 8px; border-bottom:1px dashed var(--line)}
+    section:last-of-type{border-bottom:0}
+    h2{margin:8px 0 6px; font-size:22px}
+    h3{margin:12px 0 6px; font-size:18px}
+    ul{margin:8px 0 14px 20px}
+    .meta{color:var(--muted); font-weight:600}
+
+    /* Accordion / toggles */
+    details.gallery{background:var(--panel); border:1px solid var(--line); border-radius:14px; margin:14px 0; overflow:hidden}
+    details.gallery > summary{cursor:pointer; list-style:none; padding:14px 16px; display:flex; align-items:center; gap:10px; font-weight:700}
+    details.gallery > summary::-webkit-details-marker{display:none}
+    details.gallery > summary:after{content:"▾"; margin-left:auto; transition:transform .2s ease}
+    details.gallery[open] > summary:after{transform:rotate(180deg)}
+    .gallery-body{padding:0 16px 16px}
+
+    /* Responsive image grid */
+    .grid{display:grid; gap:10px; grid-template-columns:repeat(2,1fr)}
+    @media (min-width:640px){.grid{grid-template-columns:repeat(3,1fr)}}
+    @media (min-width:900px){.grid{grid-template-columns:repeat(4,1fr)}}
+    figure{margin:0}
+    .thumb{width:100%; height:0; padding-bottom:70%; object-fit:cover; border-radius:10px; display:block; background:#222; border:1px solid var(--line)}
+    .cap{font-size:12px; color:var(--muted); margin-top:4px}
+    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+
+    /* Lightbox modal */
+    dialog#lightbox{width:min(92vw, 980px); border:1px solid var(--line); background:var(--panel); padding:0; border-radius:14px; color:var(--ink)}
+    dialog::backdrop{background:rgb(0 0 0 / .65)}
+    .lb-head{display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border-bottom:1px solid var(--line)}
+    .lb-body{padding:8px 12px 14px}
+    .lb-img{display:block; width:100%; height:auto; border-radius:10px}
+    .btn{appearance:none; border:1px solid var(--line); background:transparent; color:var(--ink); border-radius:10px; padding:8px 12px; cursor:pointer}
+    .btn:hover{border-color:var(--accent)}
+    .pill{display:inline-block; font-size:12px; padding:4px 8px; border:1px solid var(--line); border-radius:999px; color:var(--muted)}
+    .split{display:flex; align-items:center; justify-content:space-between; gap:10px}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <h1>Graphic Designer</h1>
+      <span class="pill">Graphic Design · Motion Graphics · Video Editing · Audio Engineering</span>
+    </header>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <p>Graphic Design · Motion Graphics · Video Editing · Audio Engineering</p>
+    </section>
+
+    <section id="education">
+      <h2>Education</h2>
+      <ul>
+        <li><em>(Not yet specified)</em> – You can add your school here later</li>
+      </ul>
+    </section>
+
+    <section id="work">
+      <h2>Work Experience</h2>
+      <h3>Social Media Manager <span class="meta">(2021 – 2024)</span></h3>
+      <ul>
+        <li>Voicehell | Avalon — Social Media Manager (2021–2022)</li>
+        <li>Voicehell | Voicehell — Social Media Manager (2022)</li>
+        <li>Danar Widianto | Bersenjagurau — Social Media Manager (2022)</li>
+        <li>Chastenes Movement — Social Media Manager (2021–2023)</li>
+        <li>Purwokerto Death Metal — Social Media Manager (2024)</li>
+      </ul>
+      <h3>Event Organizer &amp; Creative Support <span class="meta">(2021 – Present)</span></h3>
+      <ul>
+        <li>Kaki Gunung Fest — Runner, Event Planner</li>
+        <li>Voicehell — Graphic Designer, Motion Designer, Audio Engineer</li>
+        <li>Danar Widianto Bersenja Gurau — Graphic Designer, Motion Designer</li>
+        <li>Chastenes Movement — Graphic Designer, Motion Designer, Audio Engineer</li>
+        <li>Rock Aroma Live Record — Camera Operator, Data Management</li>
+        <li>Purwokerto Death Metal — Secretary, Graphic &amp; Motion Designer, Audio Engineer</li>
+        <li>Djarum LA Hoopla — Event Planner</li>
+        <li>Basecamp Space Café &amp; Live Music — Graphic Designer, Audio Engineer, Event Planner</li>
+        <li>Super Music | Dare to Perform — Graphic Designer, Event Planner, Audio Engineer</li>
+      </ul>
+    </section>
+
+    <section id="business">
+      <h2>Business Services</h2>
+      <h3>TRVE Darkness Prod — Shoe Care <span class="meta">(Owner, 2019–Present)</span></h3>
+      <p>Small business specializing in professional shoe care and restoration.</p>
+      <h3>LVRA Studio — Digital Creative Services <span class="meta">(Owner, 2023–Present)</span></h3>
+      <p>Providing branding, motion graphics, and media production.</p>
+    </section>
+
+    <section id="apprenticeship">
+      <h2>Apprenticeship</h2>
+      <ul>
+        <li>Asian Bird Watching Program — Participant</li>
+      </ul>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <p><em>You can add project links here later if needed.</em></p>
+      <p><strong>Example format:</strong> <br />
+      <strong>Project Name</strong> — Description + link</p>
+    </section>
+
+    <section id="events">
+      <h2>Event Organizer</h2>
+      <ul>
+        <li>Kaki Gunung Fest</li>
+        <li>Voicehell</li>
+        <li>Danar Widianto Bersenja Gurau</li>
+        <li>Chastenes Movement</li>
+        <li>Djarum LA Hoopla</li>
+        <li>Basecamp Space Café &amp; Live Music</li>
+        <li>Purwokerto Death Metal</li>
+        <li>Super Music | Dare to Perform</li>
+      </ul>
+    </section>
+
+    <section id="works">
+      <div class="split">
+        <h2>My Works</h2>
+        <span class="tag">Click a menu to expand</span>
+      </div>
+
+      <!-- POSTER GALLERY -->
+      <details class="gallery">
+        <summary>Posters</summary>
+        <div class="gallery-body">
+          <div class="grid" id="gallery-posters">
+            <!-- Replace src with your images in /assets/posters/ -->
+            <figure>
+              <img class="thumb" loading="lazy" src="assets/posters/poster1.jpg" alt="Poster design 1" data-full="assets/posters/poster1.jpg" />
+              <figcaption class="cap">Poster – 01</figcaption>
+            </figure>
+            <figure>
+              <img class="thumb" loading="lazy" src="assets/posters/poster2.jpg" alt="Poster design 2" data-full="assets/posters/poster2.jpg" />
+              <figcaption class="cap">Poster – 02</figcaption>
+            </figure>
+            <figure>
+              <img class="thumb" loading="lazy" src="assets/posters/poster3.jpg" alt="Poster design 3" data-full="assets/posters/poster3.jpg" />
+              <figcaption class="cap">Poster – 03</figcaption>
+            </figure>
+            <figure>
+              <img class="thumb" loading="lazy" src="assets/posters/poster4.jpg" alt="Poster design 4" data-full="assets/posters/poster4.jpg" />
+              <figcaption class="cap">Poster – 04</figcaption>
+            </figure>
+          </div>
+        </div>
+      </details>
+
+      <!-- MOTION GRAPHICS GALLERY -->
+      <details class="gallery">
+        <summary>Motion Graphics</summary>
+        <div class="gallery-body">
+          <div class="grid" id="gallery-motion">
+            <!-- Use thumbnails of your videos; clicking opens the still image or GIF. For YouTube/Vimeo, add links below captions. -->
+            <figure>
+              <img class="thumb" loading="lazy" src="assets/motion/motion1.jpg" alt="Motion graphics 1" data-full="assets/motion/motion1.mp4" />
+              <figcaption class="cap">Motion – 01 · <a href="#" aria-label="Open external video">Watch</a></figcaption>
+            </figure>
+            <figure>
+              <img class="thumb" loading="lazy" src="assets/motion/motion2.jpg" alt="Motion graphics 2" data-full="assets/motion/motion2.mp4" />
+              <figcaption class="cap">Motion – 02 · <a href="#" aria-label="Open external video">Watch</a></figcaption>
+            </figure>
+            <figure>
+              <img class="thumb" loading="lazy" src="assets/motion/motion3.jpg" alt="Motion graphics 3" data-full="assets/motion/motion3.mp4" />
+              <figcaption class="cap">Motion – 03 · <a href="#" aria-label="Open external video">Watch</a></figcaption>
+            </figure>
+          </div>
+        </div>
+      </details>
+
+      <!-- LOGO GALLERY -->
+      <details class="gallery">
+        <summary>Logo</summary>
+        <div class="gallery-body">
+          <div class="grid" id="gallery-logos">
+            <figure>
+              <img class="thumb" loading="lazy" src="assets/logos/logo1.jpg" alt="Logo 1" data-full="assets/logos/logo1.jpg" />
+              <figcaption class="cap">Logo – 01</figcaption>
+            </figure>
+            <figure>
+              <img class="thumb" loading="lazy" src="assets/logos/logo2.jpg" alt="Logo 2" data-full="assets/logos/logo2.jpg" />
+              <figcaption class="cap">Logo – 02</figcaption>
+            </figure>
+            <figure>
+              <img class="thumb" loading="lazy" src="assets/logos/logo3.jpg" alt="Logo 3" data-full="assets/logos/logo3.jpg" />
+              <figcaption class="cap">Logo – 03</figcaption>
+            </figure>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section id="youtube">
+      <h2>YouTube</h2>
+      <p>Visit my channel: <a href="https://www.youtube.com" target="_blank" rel="noopener">https://www.youtube.com</a></p>
+    </section>
+
+    <section id="footnote">
+      <p class="tag">© <span id="year"></span> • Built for GitHub Pages. Update images in the <code>/assets</code> folders.</p>
+    </section>
+  </main>
+
+  <!-- Lightbox Dialog -->
+  <dialog id="lightbox" aria-label="Media preview">
+    <div class="lb-head">
+      <strong id="lb-title">Preview</strong>
+      <button class="btn" id="lb-close" aria-label="Close">Close</button>
+    </div>
+    <div class="lb-body">
+      <img id="lb-image" class="lb-img" alt="Preview" />
+      <video id="lb-video" class="lb-img" controls style="display:none"></video>
+    </div>
+  </dialog>
+
+  <script>
+    // Current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Lightbox logic (supports images and mp4)
+    const dlg = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-image');
+    const lbVid = document.getElementById('lb-video');
+    const lbTitle = document.getElementById('lb-title');
+
+    function openLightbox(src, alt){
+      const isVideo = /\.(mp4|webm|ogg)$/i.test(src);
+      if(isVideo){
+        lbImg.style.display = 'none';
+        lbVid.style.display = 'block';
+        lbVid.src = src; lbVid.play().catch(()=>{});
+        lbTitle.textContent = alt || 'Video';
+      } else {
+        lbVid.pause(); lbVid.removeAttribute('src'); lbVid.load();
+        lbVid.style.display = 'none';
+        lbImg.style.display = 'block';
+        lbImg.src = src; lbImg.alt = alt || 'Image';
+        lbTitle.textContent = alt || 'Image';
+      }
+      if(typeof dlg.showModal === 'function') dlg.showModal();
+      else dlg.setAttribute('open','');
+    }
+
+    function closeLightbox(){
+      try{dlg.close();}catch{dlg.removeAttribute('open');}
+      lbVid.pause();
+    }
+
+    document.addEventListener('click', (e)=>{
+      const t = e.target;
+      if(t && t.classList.contains('thumb')){
+        const src = t.getAttribute('data-full') || t.src;
+        const alt = t.getAttribute('alt') || '';
+        openLightbox(src, alt);
+      }
+    });
+
+    document.getElementById('lb-close').addEventListener('click', closeLightbox);
+    dlg.addEventListener('click', (e)=>{ if(e.target === dlg) closeLightbox(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeLightbox(); });
+  </script>
+</body>
+</html>
